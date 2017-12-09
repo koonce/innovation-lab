@@ -2,31 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GazeTrigger : MonoBehaviour {
+public class GazeTrigger : MonoBehaviour
+{
 
 	public Camera PlayerCamera;
 	public AudioSource AS;
+	public bool musicPlay;
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 
-		AS = this.gameObject.GetComponent<AudioSource> ();
+		AS = this.gameObject.GetComponent<AudioSource>();
+		musicPlay = false;
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
+	// Update is called once per frame
+	void Update()
+	{
+		Debug.Log("update");
 		Vector3 camLookDir = PlayerCamera.transform.forward;
 
 		Vector3 VectorFromCamToTarget = transform.position - PlayerCamera.transform.position;
 
-		float angle = Vector3.Angle (camLookDir, VectorFromCamToTarget);
+		float angle = Vector3.Angle(camLookDir, VectorFromCamToTarget);
 
-		if (angle < 15f * transform.localScale.x) {
+		if (angle < 15f * transform.localScale.x)
+		{
 
-			AS.Play ();
+			if (musicPlay == false)
+			{
+
+				Debug.Log("looked");
+
+				AS.Play();
+
+				musicPlay = true;
+
+			}
+
 		}
-		else {
+		else
+		{
 			AS.Pause();
+			musicPlay = false;
 		}
+	}
 }
