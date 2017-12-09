@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 // Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
 // Shader created with Shader Forge v1.04 
@@ -61,7 +63,7 @@ Shader "custom/fogplane" {
                 o.normalDir = mul(unity_ObjectToWorld, float4(v.normal,0)).xyz;
                 o.posWorld = mul(unity_ObjectToWorld, v.vertex);
                 float3 lightColor = _LightColor0.rgb;
-                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
                 return o;
             }
             fixed4 frag(VertexOutput i) : COLOR {
@@ -139,7 +141,7 @@ Shader "custom/fogplane" {
                 o.normalDir = mul(unity_ObjectToWorld, float4(v.normal,0)).xyz;
                 o.posWorld = mul(unity_ObjectToWorld, v.vertex);
                 float3 lightColor = _LightColor0.rgb;
-                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
                 TRANSFER_VERTEX_TO_FRAGMENT(o)
                 return o;
             }
